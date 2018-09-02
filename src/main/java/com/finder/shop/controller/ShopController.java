@@ -11,4 +11,10 @@ public class ShopController {
 		
 		return "Index";
 	}
+	
+	@GetMapping(value = "/add")
+	public String shopAdding() {
+		
+		return "AddNewShop";
+	}
 }
