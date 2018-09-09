@@ -7,6 +7,19 @@
 </head>
 <body>
 <a href="/add">Adj hozzá boltot</a>
-
+<table class="Table">
+    <tr>
+        <th>Név</th>
+        <th>Város</th>
+        <th>Utca</th>
+        <th>Házszám</th>
+    </tr>
+    <tr th:each="oneShop : ${shops}">
+        <td th:text="${oneShop.name}"></td>
+        <td th:text="${oneShop.address.city}"></td>
+        <td th:text="${oneShop.address.street}"></td>
+        <td th:text="${oneShop.address.houseNumber}"></td>
+    </tr>
+</table>
 </body>
 </html>
