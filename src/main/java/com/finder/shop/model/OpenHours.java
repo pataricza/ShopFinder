@@ -13,14 +13,16 @@ import lombok.Setter;
 
 @Entity
 @Getter @Setter @NoArgsConstructor
-public class Shop {
-
+public class OpenHours {
+	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long id;
-	private String name;
-	@OneToOne(cascade = CascadeType.ALL)
-	private Address address;
-	@OneToOne(cascade = CascadeType.ALL)
-	private OpenHours openHours;
+	private String monday;
+	private String tuesday;
+	private String wednesday;
+	private String thursday;
+	private String friday;
+	private String saturday;
+	private String sunday;
 }
