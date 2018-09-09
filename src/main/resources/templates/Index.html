@@ -20,25 +20,40 @@
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Gyorskeresés">
+      <input class="form-control mr-sm-2" type="search" placeholder="Gyorskeresés" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Mutasd!</button>
     </form>
   </div>
 </nav>
 
-<table class="Table">
-    <tr>
-        <th>Név</th>
-        <th>Város</th>
-        <th>Utca</th>
-        <th>Házszám</th>
-    </tr>
-    <tr th:each="oneShop : ${shops}">
-        <td th:text="${oneShop.name}"></td>
-        <td th:text="${oneShop.address.city}"></td>
-        <td th:text="${oneShop.address.street}"></td>
-        <td th:text="${oneShop.address.houseNumber}"></td>
-    </tr>
-</table>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col-10">
+
+		<table class="table table-bordered">
+		    <tr class="thead-custom">
+		      <th scope="col">Név</th>
+		      <th scope="col">Város</th>
+		      <th scope="col">Utca</th>
+		      <th scope="col">Házszám</th>
+		    </tr>
+		    <tr th:each="oneShop : ${shops}">
+		      <th scope="row" th:text="${oneShop.name}"></th>
+		      <td th:text="${oneShop.address.city}"></td>
+		      <td th:text="${oneShop.address.street}"></td>
+		      <td th:text="${oneShop.address.houseNumber}"></td>
+		    </tr>
+		</table>
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+ 
 </body>
 </html>
