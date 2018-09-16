@@ -17,4 +17,8 @@ public class ShopService {
 	public List<Shop> getAllShops() {
 		return (List<Shop>) shopRepository.findAll();
 	}
+	
+	public Shop findShopById(long id) {
+		return shopRepository.findById(id).get();
+	}
 }

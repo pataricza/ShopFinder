@@ -35,21 +35,27 @@
 
 		<table class="table table-bordered">
 		    <tr class="thead-custom">
-		      <th scope="col">Név</th>
-		      <th scope="col">Város</th>
-		      <th scope="col">Utca</th>
-		      <th scope="col">Házszám</th>
-		      <th scope="col">Részletek</th>
+		      <th scope="col">Hétfő</th>
+		      <th scope="col">Kedd</th>
+		      <th scope="col">Szerda</th>
+		      <th scope="col">Csütörtök</th>
+		      <th scope="col">Péntek</th>
+		      <th scope="col">Szombat</th>
+		      <th scope="col">Vasárnap</th>
 		    </tr>
-		    <tr th:each="oneShop : ${shops}">
-		      <th scope="row" th:text="${oneShop.name}"></th>
-		      <td th:text="${oneShop.address.city}"></td>
-		      <td th:text="${oneShop.address.street}"></td>
-		      <td th:text="${oneShop.address.houseNumber}"></td>
-		      <td><a th:href="@{'/details/' + ${oneShop.id}}">Kattints!</a></td>
+		    <tr th:object= "${shop}">
+		      <td th:text="${shop.openHours.monday}"></td>
+		      <td th:text="${shop.openHours.tuesday}"></td>
+		      <td th:text="${shop.openHours.wednesday}"></td>
+		      <td th:text="${shop.openHours.thursday}"></td>
+		      <td th:text="${shop.openHours.friday}"></td>
+		      <td th:text="${shop.openHours.saturday}"></td>
+		      <td th:text="${shop.openHours.sunday}"></td>
 		    </tr>
 		</table>
-
+		<div>
+		   <p><img th:src="${image}" alt="Kisbolt" align="left" width="300" class="image">some text here</p>
+		</div>
     </div>
     <div class="col">
 

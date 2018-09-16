@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.finder.shop.model.Shop;
+import com.finder.shop.model.ShopImages;
 import com.finder.shop.service.ShopService;
 
 @Controller
@@ -15,12 +17,23 @@ public class ShopController {
 	
 	@Autowired
 	ShopService shopService;
+	
+	@Autowired
+	ShopImages shopImages;
 
 	@GetMapping(value = "/")
 	public String shopIndex(Model model) {
 		List<Shop> shops = shopService.getAllShops();
 		model.addAttribute("shops", shops);
 		return "Index";
+	}
+	
+	@GetMapping(value = "/details/{id}")
+	public String shopDetails(Model model, @PathVariable(name = "id") long id) {
+		Shop shop = shopService.findShopById(id);
+		model.addAttribute("shop", shop);
+		model.addAttribute("image", shopImages.getImage());
+		return "Details";
 	}
 	
 	@GetMapping(value = "/add")

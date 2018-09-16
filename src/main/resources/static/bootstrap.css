@@ -9034,3 +9034,8 @@ a.text-dark:hover, a.text-dark:focus {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/* Saját formázás */
+.image {
+    margin-right: 20px;
+}
