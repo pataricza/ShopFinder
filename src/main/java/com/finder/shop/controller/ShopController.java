@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.finder.shop.model.Shop;
 import com.finder.shop.service.ImageService;
@@ -37,8 +39,14 @@ public class ShopController {
 	}
 	
 	@GetMapping(value = "/add")
-	public String shopAdding() {
-		
+	public String addShop(Model model) {
+		model.addAttribute("shop", new Shop());
 		return "AddNewShop";
+	}
+	
+	@PostMapping(value = "/add")
+	public String createShop(@ModelAttribute Shop shop, Model model) {
+		shopService.createShop(shop);
+		return "redirect:/";
 	}
 }

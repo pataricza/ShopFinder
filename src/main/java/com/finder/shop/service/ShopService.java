@@ -21,4 +21,8 @@ public class ShopService {
 	public Shop findShopById(long id) {
 		return shopRepository.findById(id).get();
 	}
+	
+	public void createShop(Shop shop) {
+		shopRepository.save(shop);
+	}
 }
