@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.finder.shop.model.Shop;
-import com.finder.shop.model.ShopImages;
+import com.finder.shop.service.ImageService;
 import com.finder.shop.service.ShopService;
 
 @Controller
@@ -19,7 +19,7 @@ public class ShopController {
 	ShopService shopService;
 	
 	@Autowired
-	ShopImages shopImages;
+	ImageService imageService;
 
 	@GetMapping(value = "/")
 	public String shopIndex(Model model) {
@@ -32,7 +32,7 @@ public class ShopController {
 	public String shopDetails(Model model, @PathVariable(name = "id") long id) {
 		Shop shop = shopService.findShopById(id);
 		model.addAttribute("shop", shop);
-		model.addAttribute("image", shopImages.getImage());
+		model.addAttribute("image", imageService.getImage(id));
 		return "Details";
 	}
 	
