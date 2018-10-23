@@ -46,16 +46,21 @@
 		      <td th:text="${oneShop.address.city}"></td>
 		      <td th:text="${oneShop.address.street}"></td>
 		      <td th:text="${oneShop.address.houseNumber}"></td>
-		      <td><a th:href="@{'/details/' + ${oneShop.id}}">Kattints!</a></td>
+		      <td><button onclick="details()">Click Me</button></td>
 		    </tr>
 		</table>
-
+		<div id="details">
+		  This is my DIV element.
+		</div>
     </div>
     <div class="col">
 
     </div>
   </div>
 </div>
- 
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		crossorigin="anonymous"></script>
+<script type="text/javascript" src="/javascript.js"></script>
 </body>
 </html>

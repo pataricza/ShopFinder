@@ -9043,3 +9043,7 @@ a.text-dark:hover, a.text-dark:focus {
 .form {
     margin-top: 20px;
 }
+
+#details {
+	display: none;
+}
