@@ -9047,3 +9047,7 @@ a.text-dark:hover, a.text-dark:focus {
 #details {
 	display: none;
 }
+
+#detailButton {
+	width: 100px;
+}
