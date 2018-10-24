@@ -46,5 +46,26 @@ public class ShopApplication implements CommandLineRunner {
 		shop.setName("Kisbolt");
 	//	adressRepository.save(address);
 		shopRepository.save(shop);
+		
+		Address address1 = new Address();
+		address1.setCity("Budapest");
+		address1.setHouseNumber(88);
+		address1.setStreet("Váci utca");
+		
+		OpenHours openHours1 = new OpenHours();
+		openHours1.setMonday("08:00-21:00");
+		openHours1.setTuesday("08:00-21:00");
+		openHours1.setWednesday("08:00-21:00");
+		openHours1.setThursday("08:00-21:00");
+		openHours1.setFriday("08:00-21:00");
+		openHours1.setSaturday("08:00-15:00");
+		openHours1.setSunday("08:00-15:00");
+		
+		Shop shop1 = new Shop();
+		shop1.setAddress(address1);
+		shop1.setOpenHours(openHours1);
+		shop1.setName("Nagybolt");
+	//	adressRepository.save(address);
+		shopRepository.save(shop1);
 	}
 }

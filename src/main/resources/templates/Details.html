@@ -31,7 +31,7 @@
     <div class="col">
 
     </div>
-    <div class="col-10">
+    <div class="col-10" th:object= "${shop}">
 
 		<table class="table table-bordered">
 		    <tr class="thead-custom">
@@ -43,7 +43,7 @@
 		      <th scope="col">Szombat</th>
 		      <th scope="col">Vasárnap</th>
 		    </tr>
-		    <tr th:object= "${shop}">
+		    <tr>
 		      <td th:text="${shop.openHours.monday}"></td>
 		      <td th:text="${shop.openHours.tuesday}"></td>
 		      <td th:text="${shop.openHours.wednesday}"></td>
@@ -54,7 +54,7 @@
 		    </tr>
 		</table>
 		<div>
-		   <p><img th:src="${image}" alt="Kisbolt" align="left" width="300" class="image">some text here</p>
+		   <p><img th:src="${image}" th:alt="${shop.name}" align="left" width="300" class="image">some text here</p>
 		</div>
     </div>
     <div class="col">
