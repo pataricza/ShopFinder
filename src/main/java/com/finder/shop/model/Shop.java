@@ -6,6 +6,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +26,6 @@ public class Shop {
 	private Address address;
 	@OneToOne(cascade = CascadeType.ALL)
 	private OpenHours openHours;
+//	@Transient
+//	private MultipartFile image;
 }

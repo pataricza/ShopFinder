@@ -8,4 +8,8 @@ public class ImageService {
 	public String getImage(long id) {
 		return "/img/" + id + ".jpg";
 	}
+	
+	public void saveImage() {
+		
+	}
 }

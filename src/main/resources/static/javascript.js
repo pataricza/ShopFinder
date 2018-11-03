@@ -29,3 +29,8 @@ function populateDropDownsWithTime() {
 window.onload = function() {
 	populateDropDownsWithTime();
 }
+
+$('#inputGroupFile01').on('change',function(){
+    var fileName = $(this).val();
+    $(this).next('.custom-file-label').html(fileName);
+})

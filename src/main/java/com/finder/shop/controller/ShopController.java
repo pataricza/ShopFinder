@@ -5,10 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.shop.model.Shop;
 import com.finder.shop.service.ImageService;
@@ -45,7 +48,8 @@ public class ShopController {
 	}
 	
 	@PostMapping(value = "/add")
-	public String createShop(@ModelAttribute Shop shop, Model model) {
+	public String createShop(@ModelAttribute Shop shop, Model model, @RequestParam("image") MultipartFile image) {
+		System.out.println(StringUtils.cleanPath(image.getOriginalFilename()));
 		shopService.createShop(shop);
 		return "redirect:/";
 	}
