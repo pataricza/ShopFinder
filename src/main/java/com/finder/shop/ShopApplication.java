@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.finder.shop.model.Address;
+import com.finder.shop.model.OpenHour;
 import com.finder.shop.model.OpenHours;
 import com.finder.shop.model.Shop;
 import com.finder.shop.repository.AddressRepository;
@@ -31,14 +32,15 @@ public class ShopApplication implements CommandLineRunner {
 		address.setHouseNumber(59);
 		address.setStreet("Fiastyúk utca");
 		
+		OpenHour test = new OpenHour();
+		test.setOpen("08:00");
+		test.setClose("21:00");
+		
 		OpenHours openHours = new OpenHours();
-		openHours.setMonday("08:00-21:00");
-		openHours.setTuesday("08:00-21:00");
-		openHours.setWednesday("08:00-21:00");
-		openHours.setThursday("08:00-21:00");
-		openHours.setFriday("08:00-21:00");
-		openHours.setSaturday("08:00-15:00");
-		openHours.setSunday("08:00-15:00");
+		openHours.setMondayToThursday(test);
+		openHours.setFriday(test);
+		openHours.setSaturday(test);
+		openHours.setSunday(test);
 		
 		Shop shop = new Shop();
 		shop.setAddress(address);
@@ -52,14 +54,15 @@ public class ShopApplication implements CommandLineRunner {
 		address1.setHouseNumber(88);
 		address1.setStreet("Váci utca");
 		
+		OpenHour test1 = new OpenHour();
+		test1.setOpen("08:00");
+		test1.setClose("21:00");
+		
 		OpenHours openHours1 = new OpenHours();
-		openHours1.setMonday("08:00-21:00");
-		openHours1.setTuesday("08:00-21:00");
-		openHours1.setWednesday("08:00-21:00");
-		openHours1.setThursday("08:00-21:00");
-		openHours1.setFriday("08:00-21:00");
-		openHours1.setSaturday("08:00-15:00");
-		openHours1.setSunday("08:00-15:00");
+		openHours1.setMondayToThursday(test1);
+		openHours1.setFriday(test1);
+		openHours1.setSaturday(test1);
+		openHours1.setSunday(test1);
 		
 		Shop shop1 = new Shop();
 		shop1.setAddress(address1);

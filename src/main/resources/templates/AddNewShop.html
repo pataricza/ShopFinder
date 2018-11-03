@@ -55,9 +55,62 @@
 	    </div>
 	  </div>
 	  <div class="form-row">
-	    <div class="form-group col-md-4">
-	    <label>Hétfő</label>
-	      <select class="form-control dropdown" th:field="*{openHours.monday}">
+	  	<div class="form-group col-md-2">
+	  	  <p class="day-names">Hétfőtől csütörtökig:</p>
+	  	</div>
+	    <div class="form-group col-md-5">
+	    <label>Nyitás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.mondayToThursday.open}">
+	      </select>
+	    </div>
+	    <div class="form-group col-md-5">
+	    <label>Zárás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.mondayToThursday.close}">
+	      </select>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	  	<div class="form-group col-md-2">
+	  	  <p class="day-names">Péntek:</p>
+	  	</div>
+	    <div class="form-group col-md-5">
+	    <label>Nyitás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.friday.open}">
+	      </select>
+	    </div>
+	    <div class="form-group col-md-5">
+	    <label>Zárás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.friday.close}">
+	      </select>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	  	<div class="form-group col-md-2">
+	  	  <p class="day-names">Szombat:</p>
+	  	</div>
+	    <div class="form-group col-md-5">
+	    <label>Nyitás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.saturday.open}">
+	      </select>
+	    </div>
+	    <div class="form-group col-md-5">
+	    <label>Zárás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.saturday.close}">
+	      </select>
+	    </div>
+	  </div>
+	  <div class="form-row">
+	  	<div class="form-group col-md-2">
+	  	  <p class="day-names">Vasárnap:</p>
+	  	</div>
+	    <div class="form-group col-md-5">
+	    <label>Nyitás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.sunday.open}">
+	      </select>
+	    </div>
+	    <div class="form-group col-md-5">
+	    <label>Zárás</label>
+	      <select class="form-control dropdown" th:field="*{openHours.sunday.close}">
 	      </select>
 	    </div>
 	  </div>

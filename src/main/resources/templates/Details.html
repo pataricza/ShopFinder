@@ -44,13 +44,13 @@
 		      <th scope="col">Vasárnap</th>
 		    </tr>
 		    <tr>
-		      <td th:text="${shop.openHours.monday}"></td>
-		      <td th:text="${shop.openHours.tuesday}"></td>
-		      <td th:text="${shop.openHours.wednesday}"></td>
-		      <td th:text="${shop.openHours.thursday}"></td>
-		      <td th:text="${shop.openHours.friday}"></td>
-		      <td th:text="${shop.openHours.saturday}"></td>
-		      <td th:text="${shop.openHours.sunday}"></td>
+		      <td th:text="${shop.openHours.mondayToThursday.open} + '-' + ${shop.openHours.mondayToThursday.close}"></td>
+		      <td th:text="${shop.openHours.mondayToThursday.open} + '-' + ${shop.openHours.mondayToThursday.close}"></td>
+		      <td th:text="${shop.openHours.mondayToThursday.open} + '-' + ${shop.openHours.mondayToThursday.close}"></td>
+		      <td th:text="${shop.openHours.mondayToThursday.open} + '-' + ${shop.openHours.mondayToThursday.close}"></td>
+		      <td th:text="${shop.openHours.friday.open} + '-' + ${shop.openHours.friday.close}"></td>
+		      <td th:text="${shop.openHours.saturday.open} + '-' + ${shop.openHours.saturday.close}"></td>
+		      <td th:text="${shop.openHours.sunday.open} + '-' + ${shop.openHours.sunday.close}"></td>
 		    </tr>
 		</table>
 		<div>
