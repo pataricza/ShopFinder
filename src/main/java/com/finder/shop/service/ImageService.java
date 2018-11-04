@@ -19,11 +19,7 @@ public class ImageService {
 	
 	@Autowired
 	ShopService shopService;
-	
-	public String getImage(long id) {
-		return IMAGE_FOLDER + id + ".jpg";
-	}
-	
+		
 	public void saveImage(MultipartFile image, Shop createdShop) {
 		if(image.isEmpty()) {
 			return;
@@ -31,7 +27,7 @@ public class ImageService {
 		try {
 			
 			byte[] bytes = image.getBytes();
-			String imageName = createdShop.getId() + image.getOriginalFilename();
+			String imageName = createFileName(image, createdShop);
 			
 			saveImageToUploadFolder(imageName, bytes);
 			shopService.updateShopImageName(IMAGE_FOLDER + imageName, createdShop);
@@ -39,6 +35,14 @@ public class ImageService {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private String createFileName(MultipartFile image, Shop createdShop) {
+		String[] parts = image.getOriginalFilename().split("\\.");
+		String extension = "." + parts[parts.length-1];
+		String imageName = createdShop.getId() + extension;
+		
+		return imageName;
 	}
 	
 	private void saveImageToUploadFolder(String imageName, byte[] bytes) throws IOException {

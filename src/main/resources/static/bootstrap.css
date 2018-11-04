@@ -9038,6 +9038,8 @@ a.text-dark:hover, a.text-dark:focus {
 /* Saját formázás */
 .image {
     margin-right: 20px;
+    align: left;
+    width: 300px;
 }
 
 .form {
