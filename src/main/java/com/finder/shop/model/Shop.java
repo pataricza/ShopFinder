@@ -26,4 +26,5 @@ public class Shop {
 	private Address address;
 	@OneToOne(cascade = CascadeType.ALL)
 	private OpenHours openHours;
+	private String imageName;
 }

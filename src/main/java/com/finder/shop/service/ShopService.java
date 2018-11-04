@@ -22,7 +22,12 @@ public class ShopService {
 		return shopRepository.findById(id).get();
 	}
 	
-	public void createShop(Shop shop) {
+	public Shop createShop(Shop shop) {
+		return shopRepository.save(shop);
+	}
+	
+	public void updateShopImageName(String imageName, Shop shop) {
+		shop.setImageName(imageName);
 		shopRepository.save(shop);
 	}
 }

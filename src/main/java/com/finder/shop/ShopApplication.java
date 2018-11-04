@@ -46,6 +46,7 @@ public class ShopApplication implements CommandLineRunner {
 		shop.setAddress(address);
 		shop.setOpenHours(openHours);
 		shop.setName("Kisbolt");
+		shop.setImageName("/img/1.jpg");
 	//	adressRepository.save(address);
 		shopRepository.save(shop);
 		

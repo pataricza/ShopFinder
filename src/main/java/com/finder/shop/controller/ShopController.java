@@ -37,7 +37,6 @@ public class ShopController {
 	public String shopDetails(@PathVariable(name = "id") long id, Model model) {
 		Shop shop = shopService.findShopById(id);
 		model.addAttribute("shop", shop);
-		model.addAttribute("image", imageService.getImage(id));
 		return "Details";
 	}
 	
@@ -50,8 +49,8 @@ public class ShopController {
 	@PostMapping(value = "/add")
 	public String createShop(@ModelAttribute Shop shop, 
 													 @RequestParam("image") MultipartFile image, Model model) {
-		imageService.saveImage(image);
-		shopService.createShop(shop);
+		Shop createdShop = shopService.createShop(shop);
+		imageService.saveImage(image, createdShop);
 		return "redirect:/";
 	}
 }
