@@ -34,7 +34,7 @@ public class ShopController {
 	}
 	
 	@GetMapping(value = "/details/{id}")
-	public String shopDetails(Model model, @PathVariable(name = "id") long id) {
+	public String shopDetails(@PathVariable(name = "id") long id, Model model) {
 		Shop shop = shopService.findShopById(id);
 		model.addAttribute("shop", shop);
 		model.addAttribute("image", imageService.getImage(id));
@@ -48,8 +48,9 @@ public class ShopController {
 	}
 	
 	@PostMapping(value = "/add")
-	public String createShop(@ModelAttribute Shop shop, Model model, @RequestParam("image") MultipartFile image) {
-		System.out.println(StringUtils.cleanPath(image.getOriginalFilename()));
+	public String createShop(@ModelAttribute Shop shop, 
+													 @RequestParam("image") MultipartFile image, Model model) {
+		imageService.saveImage(image);
 		shopService.createShop(shop);
 		return "redirect:/";
 	}
