@@ -29,7 +29,7 @@ public class ShopApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Address address = new Address();
 		address.setCity("Budapest");
-		address.setHouseNumber(59);
+		address.setHouseNumber("59");
 		address.setStreet("Fiastyúk utca");
 		
 		OpenHour test = new OpenHour();
@@ -52,7 +52,7 @@ public class ShopApplication implements CommandLineRunner {
 		
 		Address address1 = new Address();
 		address1.setCity("Budapest");
-		address1.setHouseNumber(88);
+		address1.setHouseNumber("88");
 		address1.setStreet("Váci utca");
 		
 		OpenHour test1 = new OpenHour();
