@@ -10,43 +10,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.shop.model.Shop;
+import com.finder.shop.service.utility.FileWriterService;
+import com.finder.shop.service.utility.ImageServiceUtility;
 
 @Service
 public class ImageService {
 	
-	private static final String IMAGE_FOLDER = "/img/";
-	private static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
+	public static final String IMAGE_FOLDER = "/img/";
 	
 	@Autowired
 	ShopService shopService;
+	
+	@Autowired
+	FileWriterService fileWriterService;
+	
+	@Autowired
+	ImageServiceUtility imageServiceUtility;
 		
 	public void saveImage(MultipartFile image, Shop createdShop) {
 		if(image.isEmpty()) {
 			return;
 		}
-		try {
 			
-			byte[] bytes = image.getBytes();
-			String imageName = createFileName(image, createdShop);
+		String imageName = imageServiceUtility.createFileName(image, createdShop);
 			
-			saveImageToUploadFolder(imageName, bytes);
-			shopService.updateShopImageName(IMAGE_FOLDER + imageName, createdShop);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private String createFileName(MultipartFile image, Shop createdShop) {
-		String[] parts = image.getOriginalFilename().split("\\.");
-		String extension = "." + parts[parts.length-1];
-		String imageName = createdShop.getId() + extension;
-		
-		return imageName;
-	}
-	
-	private void saveImageToUploadFolder(String imageName, byte[] bytes) throws IOException {
-			Path path = Paths.get(UPLOAD_FOLDER + imageName);
-	    Files.write(path, bytes);
+		fileWriterService.writeImageToUploadFolder(imageName, image);
+		shopService.updateShopImageName(IMAGE_FOLDER + imageName, createdShop);
 	}
 }
