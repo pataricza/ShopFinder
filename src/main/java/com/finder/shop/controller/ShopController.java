@@ -21,10 +21,10 @@ import com.finder.shop.service.ShopService;
 public class ShopController {
 	
 	@Autowired
-	ShopService shopService;
+	private ShopService shopService;
 	
 	@Autowired
-	ImageService imageService;
+	private ImageService imageService;
 
 	@GetMapping(value = "/")
 	public String shopIndex(Model model) {
