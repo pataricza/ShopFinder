@@ -12,18 +12,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class OpenHours {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long id;
-	@OneToOne(cascade = CascadeType.ALL)
-	private OpenHour mondayToThursday;
-	@OneToOne(cascade = CascadeType.ALL)
-	private OpenHour friday;
-	@OneToOne(cascade = CascadeType.ALL)
-	private OpenHour saturday;
-	@OneToOne(cascade = CascadeType.ALL)
-	private OpenHour sunday;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+  @OneToOne(cascade = CascadeType.ALL)
+  private OpenHour mondayToThursday;
+  @OneToOne(cascade = CascadeType.ALL)
+  private OpenHour friday;
+  @OneToOne(cascade = CascadeType.ALL)
+  private OpenHour saturday;
+  @OneToOne(cascade = CascadeType.ALL)
+  private OpenHour sunday;
 }

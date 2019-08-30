@@ -10,19 +10,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class FileWriterService {
-	
-	private static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
 
-	public void writeImageToUploadFolder(String imageName, MultipartFile image) {
-		try {
-			
-			byte[] bytes = image.getBytes();
-			Path path = Paths.get(UPLOAD_FOLDER + imageName);
-		  Files.write(path, bytes);
-		  
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
+  private static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
+
+  public void writeImageToUploadFolder(String imageName, MultipartFile image) {
+    try {
+      byte[] bytes = image.getBytes();
+      Path path = Paths.get(UPLOAD_FOLDER + imageName);
+      Files.write(path, bytes);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+  }
 }

@@ -10,24 +10,24 @@ import com.finder.shop.repository.ShopRepository;
 
 @Service
 public class ShopService {
-	
-	@Autowired
-	ShopRepository shopRepository;
 
-	public List<Shop> getAllShops() {
-		return (List<Shop>) shopRepository.findAll();
-	}
-	
-	public Shop findShopById(long id) {
-		return shopRepository.findById(id).get();
-	}
-	
-	public Shop createShop(Shop shop) {
-		return shopRepository.save(shop);
-	}
-	
-	public void updateShopImageName(String imageName, Shop shop) {
-		shop.setImageName(imageName);
-		shopRepository.save(shop);
-	}
+  @Autowired
+  private ShopRepository shopRepository;
+
+  public List<Shop> getAllShops() {
+    return (List<Shop>) shopRepository.findAll();
+  }
+
+  public Shop findShopById(long id) {
+    return shopRepository.findById(id).get();
+  }
+
+  public Shop createShop(Shop shop) {
+    return shopRepository.save(shop);
+  }
+
+  public void updateShopImageName(String imageName, Shop shop) {
+    shop.setImageName(imageName);
+    shopRepository.save(shop);
+  }
 }

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,38 +18,37 @@ import com.finder.shop.service.ShopService;
 
 @Controller
 public class ShopController {
-	
-	@Autowired
-	private ShopService shopService;
-	
-	@Autowired
-	private ImageService imageService;
 
-	@GetMapping(value = "/")
-	public String shopIndex(Model model) {
-		List<Shop> shops = shopService.getAllShops();
-		model.addAttribute("shops", shops);
-		return "Index";
-	}
-	
-	@GetMapping(value = "/details/{id}")
-	public String shopDetails(@PathVariable(name = "id") long id, Model model) {
-		Shop shop = shopService.findShopById(id);
-		model.addAttribute("shop", shop);
-		return "Details";
-	}
-	
-	@GetMapping(value = "/add")
-	public String addShop(Model model) {
-		model.addAttribute("shop", new Shop());
-		return "AddNewShop";
-	}
-	
-	@PostMapping(value = "/add")
-	public String createShop(@ModelAttribute Shop shop, 
-													 @RequestParam("image") MultipartFile image, Model model) {
-		Shop createdShop = shopService.createShop(shop);
-		imageService.saveImage(image, createdShop);
-		return "redirect:/";
-	}
+  @Autowired
+  private ShopService shopService;
+
+  @Autowired
+  private ImageService imageService;
+
+  @GetMapping(value = "/")
+  public String shopIndex(Model model) {
+    List<Shop> shops = shopService.getAllShops();
+    model.addAttribute("shops", shops);
+    return "Index";
+  }
+
+  @GetMapping(value = "/details/{id}")
+  public String shopDetails(@PathVariable(name = "id") long id, Model model) {
+    Shop shop = shopService.findShopById(id);
+    model.addAttribute("shop", shop);
+    return "Details";
+  }
+
+  @GetMapping(value = "/add")
+  public String addShop(Model model) {
+    model.addAttribute("shop", new Shop());
+    return "AddNewShop";
+  }
+
+  @PostMapping(value = "/add")
+  public String createShop(@ModelAttribute Shop shop, @RequestParam("image") MultipartFile image, Model model) {
+    Shop createdShop = shopService.createShop(shop);
+    imageService.saveImage(image, createdShop);
+    return "redirect:/";
+  }
 }
