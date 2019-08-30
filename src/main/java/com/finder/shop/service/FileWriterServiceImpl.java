@@ -1,4 +1,4 @@
-package com.finder.shop.service.utility;
+package com.finder.shop.service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,10 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class FileWriterService {
+public class FileWriterServiceImpl implements FileWriterService {
 
   private static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
-
+  
+  @Override
   public void writeImageToUploadFolder(String imageName, MultipartFile image) {
     try {
       byte[] bytes = image.getBytes();

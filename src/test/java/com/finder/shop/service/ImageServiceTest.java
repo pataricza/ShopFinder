@@ -9,8 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.mock.web.MockMultipartFile;
 
 import com.finder.shop.model.Shop;
-import com.finder.shop.service.utility.FileWriterService;
-import com.finder.shop.service.utility.ImageServiceUtility;
+import com.finder.shop.utility.ImageServiceUtilityImpl;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -19,16 +18,16 @@ import static org.mockito.Mockito.*;
 public class ImageServiceTest {
 
   @Mock
-  private ShopService shopService;
+  private ShopServiceImpl shopService;
 
   @Mock
-  private FileWriterService fileWriterService;
+  private FileWriterServiceImpl fileWriterService;
 
   @Mock
-  private ImageServiceUtility imageServiceUtility;
+  private ImageServiceUtilityImpl imageServiceUtility;
 
   @InjectMocks
-  private ImageService underTest;
+  private ImageServiceImpl underTest;
 
   @Test
   public void saveImage_EverythingIsOk() {
@@ -49,7 +48,7 @@ public class ImageServiceTest {
     // THEN
     verify(imageServiceUtility).createFileName(image, shop);
     verify(fileWriterService).writeImageToUploadFolder(newImageName, image);
-    verify(shopService).updateShopImageName(ImageService.IMAGE_FOLDER + newImageName, shop);
+    verify(shopService).updateShopImageName(ImageServiceImpl.IMAGE_FOLDER + newImageName, shop);
     verifyNoMoreInteractions(imageServiceUtility, fileWriterService, shopService);
   }
 }

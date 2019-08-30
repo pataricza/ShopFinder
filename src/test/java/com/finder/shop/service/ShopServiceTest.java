@@ -23,7 +23,7 @@ public class ShopServiceTest {
   private ShopRepository shopRepository;
 
   @InjectMocks
-  private ShopService underTest;
+  private ShopServiceImpl underTest;
 
   @Test
   public void getAllShopsTest() {
