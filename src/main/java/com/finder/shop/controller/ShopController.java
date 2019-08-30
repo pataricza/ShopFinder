@@ -19,11 +19,15 @@ import com.finder.shop.service.ShopService;
 @Controller
 public class ShopController {
 
-  @Autowired
   private ShopService shopService;
 
-  @Autowired
   private ImageService imageService;
+  
+  @Autowired
+  public ShopController(ShopService shopService, ImageService imageService) {
+    this.shopService = shopService;
+    this.imageService = imageService;
+  }
 
   @GetMapping(value = "/")
   public String shopIndex(Model model) {
@@ -46,7 +50,9 @@ public class ShopController {
   }
 
   @PostMapping(value = "/add")
-  public String createShop(@ModelAttribute Shop shop, @RequestParam("image") MultipartFile image, Model model) {
+  public String createShop(@ModelAttribute Shop shop, 
+                           @RequestParam("image") MultipartFile image,
+                           Model model) {
     Shop createdShop = shopService.createShop(shop);
     imageService.saveImage(image, createdShop);
     return "redirect:/";

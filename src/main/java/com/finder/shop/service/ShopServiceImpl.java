@@ -11,8 +11,12 @@ import com.finder.shop.repository.ShopRepository;
 @Service
 public class ShopServiceImpl implements ShopService {
 
-  @Autowired
   private ShopRepository shopRepository;
+  
+  @Autowired
+  public ShopServiceImpl(ShopRepository shopRepository) {
+    this.shopRepository = shopRepository;
+  }
 
   @Override
   public List<Shop> getAllShops() {

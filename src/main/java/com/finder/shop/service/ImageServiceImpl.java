@@ -12,14 +12,20 @@ public class ImageServiceImpl implements ImageService {
 
   public static final String IMAGE_FOLDER = "/img/";
 
-  @Autowired
   private ShopService shopService;
 
-  @Autowired
   private FileWriterService fileWriterService;
 
-  @Autowired
   private ImageServiceUtilityImpl imageServiceUtility;
+  
+  @Autowired
+  public ImageServiceImpl(ShopService shopService,
+                          FileWriterService fileWriterService,
+                          ImageServiceUtilityImpl imageServiceUtility) {
+    this.shopService = shopService;
+    this.fileWriterService = fileWriterService;
+    this.imageServiceUtility = imageServiceUtility;
+  }
 
   @Override
   public void saveImage(MultipartFile image, Shop createdShop) {
