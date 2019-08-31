@@ -3,6 +3,7 @@ package com.finder.shop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.finder.shop.model.Shop;
@@ -33,23 +35,24 @@ public class ShopController {
   public String shopIndex(Model model) {
     List<Shop> shops = shopService.getAllShops();
     model.addAttribute("shops", shops);
-    return "Index";
+    return "index";
   }
 
   @GetMapping(value = "/details/{id}")
   public String shopDetails(@PathVariable(name = "id") long id, Model model) {
     Shop shop = shopService.findShopById(id);
     model.addAttribute("shop", shop);
-    return "Details";
+    return "details";
   }
 
   @GetMapping(value = "/add")
   public String addShop(Model model) {
     model.addAttribute("shop", new Shop());
-    return "AddNewShop";
+    return "add";
   }
 
   @PostMapping(value = "/add")
+  @ResponseStatus(HttpStatus.CREATED)
   public String createShop(@ModelAttribute Shop shop, 
                            @RequestParam("image") MultipartFile image,
                            Model model) {
