@@ -17,6 +17,7 @@ import com.finder.shop.service.ShopService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,7 +38,9 @@ public class ShopControllerTest {
   @Before
   public void setUp() {
     ShopController underTest = new ShopController(shopService, imageService);
-    mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
+    mockMvc = MockMvcBuilders.standaloneSetup(underTest)
+                             .setControllerAdvice(new ErrorController())
+                             .build();
   }
 
   @Test
@@ -64,7 +67,7 @@ public class ShopControllerTest {
 
     // THEN  
     result.andExpect(status().isOk())
-          .andExpect(view().name("Index"))
+          .andExpect(view().name("index"))
           .andExpect(model().attribute("shops", hasSize(1)))
           .andExpect(model().attribute("shops", hasItem(
               allOf(hasProperty("id", is(1L)),
@@ -76,6 +79,23 @@ public class ShopControllerTest {
               )));
     
     verify(shopService, times(1)).getAllShops();
+    verifyNoMoreInteractions(shopService);
+  }
+  
+  @Test
+  public void shopDetailsTest_shopNotFound() throws Exception {
+    // GIVEN
+    long id = 1;
+    when(shopService.findShopById(id)).thenThrow(NoSuchElementException.class);
+    
+    // WHEN
+    ResultActions result = mockMvc.perform(get("/details/" + id));
+    
+    // THEN
+    result.andExpect(status().isNotFound())
+          .andExpect(view().name("error"));
+    
+    verify(shopService, times(1)).findShopById(id);
     verifyNoMoreInteractions(shopService);
   }
 }

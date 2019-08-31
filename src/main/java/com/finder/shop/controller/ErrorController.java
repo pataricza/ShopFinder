@@ -10,7 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 
 @ControllerAdvice
-public class ShopFinderErrorController {
+public class ErrorController {
 
   @ExceptionHandler(NoSuchElementException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
