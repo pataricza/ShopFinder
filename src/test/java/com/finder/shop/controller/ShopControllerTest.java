@@ -98,4 +98,38 @@ public class ShopControllerTest {
     verify(shopService, times(1)).findShopById(id);
     verifyNoMoreInteractions(shopService);
   }
+  
+  @Test
+  public void shopDetailsTest_shopFound() throws Exception {
+    // GIVEN
+    long id = 1;
+    OpenHours openHours = new OpenHours();
+    Address address = new Address();
+    String shopName = "The Shop";
+    String imageName = "img/1.jpg";
+
+    Shop shop = Shop.builder().id(1L)
+                              .name(shopName)
+                              .address(address)
+                              .openHours(openHours)
+                              .imageName(imageName)
+                              .build();
+    
+    when(shopService.findShopById(id)).thenReturn(shop);
+    
+    // WHEN
+    ResultActions result = mockMvc.perform(get("/details/" + id));
+    
+    // THEN
+    result.andExpect(status().isOk())
+          .andExpect(view().name("details"))
+          .andExpect(model().attribute("shop", hasProperty("id", is(id))))
+          .andExpect(model().attribute("shop", hasProperty("name", is(shopName))))
+          .andExpect(model().attribute("shop", hasProperty("address", is(address))))
+          .andExpect(model().attribute("shop", hasProperty("openHours", is(openHours))))
+          .andExpect(model().attribute("shop", hasProperty("imageName", is(imageName))));
+    
+    verify(shopService, times(1)).findShopById(id);
+    verifyNoMoreInteractions(shopService);
+  }
 }
