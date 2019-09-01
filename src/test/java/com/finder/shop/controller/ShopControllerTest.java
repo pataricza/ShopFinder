@@ -8,6 +8,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.finder.shop.model.Address;
 import com.finder.shop.model.OpenHours;
@@ -38,8 +39,12 @@ public class ShopControllerTest {
   @Before
   public void setUp() {
     ShopController underTest = new ShopController(shopService, imageService);
+    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+    viewResolver.setPrefix("/WEB-INF/jsp/view/");
+    viewResolver.setSuffix(".jsp");
     mockMvc = MockMvcBuilders.standaloneSetup(underTest)
                              .setControllerAdvice(new ErrorController())
+                             .setViewResolvers(viewResolver)
                              .build();
   }
 
@@ -131,5 +136,16 @@ public class ShopControllerTest {
     
     verify(shopService, times(1)).findShopById(id);
     verifyNoMoreInteractions(shopService);
+  }
+  
+  @Test
+  public void addShopTest() throws Exception {  
+    // WHEN
+    ResultActions result = mockMvc.perform(get("/add"));
+    
+    // THEN
+    result.andExpect(status().isOk())
+          .andExpect(view().name("add"))
+          .andExpect(model().attribute("shop", equalTo(new Shop())));
   }
 }
