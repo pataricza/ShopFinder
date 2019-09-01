@@ -52,10 +52,8 @@ public class ShopController {
   }
 
   @PostMapping(value = "/add")
-  @ResponseStatus(HttpStatus.CREATED)
   public String createShop(@ModelAttribute Shop shop, 
-                           @RequestParam("image") MultipartFile image,
-                           Model model) {
+                           @RequestParam("image") MultipartFile image) {
     Shop createdShop = shopService.createShop(shop);
     imageService.saveImage(image, createdShop);
     return "redirect:/";
