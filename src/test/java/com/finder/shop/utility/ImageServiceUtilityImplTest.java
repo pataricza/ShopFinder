@@ -21,9 +21,8 @@ public class ImageServiceUtilityImplTest {
   @Test
   public void createFileNameTest() {
     // GIVEN
-    String originalFileName = "Image.jpg";
-    byte[] contentInBytes = new byte[100];
-    MultipartFile image = new MockMultipartFile(originalFileName, contentInBytes);
+    String originalImageName = "Image.jpg";
+    MultipartFile image = new MockMultipartFile(originalImageName, new byte[100]);
     
     Shop shop = Shop.builder().id(3L).build();
     

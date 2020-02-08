@@ -37,8 +37,8 @@ public class ImageServiceImplTest {
     // GIVEN
     Shop shop = new Shop();
 
-    String originalFileName = "Image.jpg";
-    MultipartFile image = new MockMultipartFile(originalFileName, new byte[100]);
+    String originalImageName = "Image.jpg";
+    MultipartFile image = new MockMultipartFile(originalImageName, new byte[100]);
 
     String newImageName = "1.jpg";
 
