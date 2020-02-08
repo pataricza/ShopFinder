@@ -10,7 +10,7 @@ public class ImageServiceUtilityImpl implements ImageServiceUtility {
 
   @Override
   public String createFileName(MultipartFile image, Shop createdShop) {
-    String[] parts = image.getOriginalFilename().split("\\.");
+    String[] parts = image.getName().split("\\.");
     String extension = "." + parts[parts.length - 1];
     String imageName = createdShop.getId() + extension;
 

@@ -11,11 +11,10 @@ import org.springframework.mock.web.MockMultipartFile;
 import com.finder.shop.model.Shop;
 import com.finder.shop.utility.ImageServiceUtilityImpl;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ImageServiceTest {
+public class ImageServiceImplTest {
 
   @Mock
   private ShopServiceImpl shopService;
@@ -30,13 +29,12 @@ public class ImageServiceTest {
   private ImageServiceImpl underTest;
 
   @Test
-  public void saveImage_EverythingIsOk() {
+  public void saveImage() {
     // GIVEN
     Shop shop = new Shop();
 
     String originalFileName = "Image.jpg";
-    byte[] contentInBytes = { 80, 65, 70, 14, 29 };
-    MultipartFile image = new MockMultipartFile(originalFileName, contentInBytes);
+    MultipartFile image = new MockMultipartFile(originalFileName, new byte[100]);
 
     String newImageName = "1.jpg";
 

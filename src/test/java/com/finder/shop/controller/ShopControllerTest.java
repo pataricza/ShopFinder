@@ -144,7 +144,7 @@ public class ShopControllerTest {
   @Test
   public void createShopTest() throws Exception {  
     // GIVEN
-    MockMultipartFile image = new MockMultipartFile("image", new byte[]{ 80, 65, 70, 14, 29 });
+    MockMultipartFile image = new MockMultipartFile("image", new byte[100]);
     
     when(shopService.createShop(shop)).thenReturn(shop);
     
