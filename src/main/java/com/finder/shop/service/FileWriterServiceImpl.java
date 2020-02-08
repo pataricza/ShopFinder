@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileWriterServiceImpl implements FileWriterService {
 
-  private static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
+  public static final String UPLOAD_FOLDER = "./src/main/resources/static/img/";
   
   @Override
   public void writeImageToUploadFolder(String imageName, MultipartFile image) {
