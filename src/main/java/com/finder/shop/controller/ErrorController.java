@@ -22,7 +22,7 @@ public class ErrorController {
   
   @ExceptionHandler(MaxUploadSizeExceededException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public String fileSizeLimitExceeded(Model model) {
+  public String imageTooLarge(Model model) {
     model.addAttribute("errorMessage1", ErrorMessage.FILE_SIZE_LIMIT_EXCEEDED_1);
     model.addAttribute("errorMessage2", ErrorMessage.FILE_SIZE_LIMIT_EXCEEDED_2);
     return "error";
@@ -31,7 +31,7 @@ public class ErrorController {
   private enum ErrorMessage {
     SHOP_NOT_FOUND_1("There is no such shop!"),
     SHOP_NOT_FOUND_2("Maybe you want to add it?"),
-    FILE_SIZE_LIMIT_EXCEEDED_1("The picture you have tried to upload is too big."),
+    FILE_SIZE_LIMIT_EXCEEDED_1("The image you have tried to upload is too big."),
     FILE_SIZE_LIMIT_EXCEEDED_2("Try a picture with a size less than 2MB");
     
     private final String message;
