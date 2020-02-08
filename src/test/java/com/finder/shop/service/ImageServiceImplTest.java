@@ -1,8 +1,8 @@
 package com.finder.shop.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +25,12 @@ public class ImageServiceImplTest {
   @Mock
   private ImageServiceUtilityImpl imageServiceUtility;
 
-  @InjectMocks
   private ImageServiceImpl underTest;
+  
+  @Before
+  public void setUp() {
+    underTest = new ImageServiceImpl(shopService, fileWriterService, imageServiceUtility);
+  }
 
   @Test
   public void saveImage() {

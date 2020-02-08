@@ -1,5 +1,6 @@
 package com.finder.shop.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -22,8 +23,12 @@ public class ShopServiceImplTest {
   @Mock
   private ShopRepository shopRepository;
 
-  @InjectMocks
   private ShopServiceImpl underTest;
+  
+  @Before
+  public void setUp() {
+    underTest = new ShopServiceImpl(shopRepository);
+  }
 
   @Test
   public void getAllShopsTest() {
