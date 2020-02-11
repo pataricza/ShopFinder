@@ -33,7 +33,7 @@ public class ImageServiceImplTest {
   }
 
   @Test
-  public void saveImage() {
+  public void saveImage_ImageIsThere() {
     // GIVEN
     Shop shop = new Shop();
     MultipartFile image = new MockMultipartFile("Image.jpg", new byte[100]);
@@ -48,6 +48,19 @@ public class ImageServiceImplTest {
     verify(imageServiceUtility).createFileName(image, shop);
     verify(fileWriterService).writeImageToUploadFolder(newImageName, image);
     verify(shopService).updateShopImageName(ImageServiceImpl.IMAGE_FOLDER + newImageName, shop);
+    verifyNoMoreInteractions(imageServiceUtility, fileWriterService, shopService);
+  }
+  
+  @Test
+  public void saveImage_ImageIsEmpty() {
+    // GIVEN
+    Shop shop = new Shop();
+    MultipartFile image = new MockMultipartFile(" ", new byte[0]);
+
+    // WHEN
+    underTest.saveImage(image, shop);
+
+    // THEN
     verifyNoMoreInteractions(imageServiceUtility, fileWriterService, shopService);
   }
 }
