@@ -50,11 +50,16 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- PostgreSQL -->
+		<!-- Database -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-maven-plugin</artifactId>
+			<version>6.2.4</version>
 		</dependency>
 
 		<!-- Lombok -->
