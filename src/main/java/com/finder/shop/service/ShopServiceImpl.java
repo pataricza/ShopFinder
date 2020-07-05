@@ -24,7 +24,7 @@ public class ShopServiceImpl implements ShopService {
   }
 
   @Override
-  public Shop findShopById(long id) {
+  public Shop getShopById(long id) {
     return shopRepository.findById(id).get();
   }
 

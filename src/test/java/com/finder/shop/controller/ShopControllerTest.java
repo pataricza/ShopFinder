@@ -65,28 +65,31 @@ public class ShopControllerTest {
   }
 
   @Test
-  public void shopIndexTest() throws Exception {
+  public void getAllShops_Test() throws Exception {
     // GIVEN
     List<Shop> shopList = Collections.singletonList(shop);
 
     when(shopService.getAllShops()).thenReturn(shopList);
 
     // WHEN
-    ResultActions result = mockMvc.perform(get("/"));
+    ResultActions result = mockMvc.perform(get("/shops"));
 
     // THEN  
     result.andExpect(status().isOk())
-          .andExpect(view().name("index"))
-          .andExpect(model().attribute("shops", hasSize(1)))
-          .andExpect(model().attribute("shops", hasItem(
-              allOf(hasProperty("id", is(1L)),
-                    hasProperty("name", is("The Shop")),
-                    hasProperty("address", is(new Address())),
-                    hasProperty("openHours", is(new OpenHours())),
-                    hasProperty("imageName", is("img/1.jpg"))
-                    )
-              )));
-    
+          .andExpect(jsonPath("$", hasSize(1)))
+          .andExpect(jsonPath("$.[0].id", is(1)))
+          .andExpect(jsonPath("$.[0].name", is("The Shop")))
+          .andExpect(jsonPath("$.[0].address.id", nullValue()))
+          .andExpect(jsonPath("$.[0].address.city", nullValue()))
+          .andExpect(jsonPath("$.[0].address.street", nullValue()))
+          .andExpect(jsonPath("$.[0].address.houseNumber", nullValue()))
+          .andExpect(jsonPath("$.[0].openHours.id", nullValue()))
+          .andExpect(jsonPath("$.[0].openHours.mondayToThursday", nullValue()))
+          .andExpect(jsonPath("$.[0].openHours.friday", nullValue()))
+          .andExpect(jsonPath("$.[0].openHours.saturday", nullValue()))
+          .andExpect(jsonPath("$.[0].openHours.sunday", nullValue()))
+          .andExpect(jsonPath("$.[0].imageName", is("img/1.jpg")));
+
     verify(shopService, times(1)).getAllShops();
     verifyNoMoreInteractions(shopService);
   }
@@ -95,7 +98,7 @@ public class ShopControllerTest {
   public void shopDetailsTest_shopNotFound() throws Exception {
     // GIVEN
     long id = 1;
-    when(shopService.findShopById(id)).thenThrow(NoSuchElementException.class);
+    when(shopService.getShopById(id)).thenThrow(NoSuchElementException.class);
     
     // WHEN
     ResultActions result = mockMvc.perform(get("/details/" + id));
@@ -104,7 +107,7 @@ public class ShopControllerTest {
     result.andExpect(status().isNotFound())
           .andExpect(view().name("error"));
     
-    verify(shopService, times(1)).findShopById(1L);
+    verify(shopService, times(1)).getShopById(1L);
     verifyNoMoreInteractions(shopService);
   }
   
@@ -112,7 +115,7 @@ public class ShopControllerTest {
   public void shopDetailsTest_shopFound() throws Exception {
     // GIVEN
     long id = 1;
-    when(shopService.findShopById(id)).thenReturn(shop);
+    when(shopService.getShopById(id)).thenReturn(shop);
     
     // WHEN
     ResultActions result = mockMvc.perform(get("/details/" + id));
@@ -126,7 +129,7 @@ public class ShopControllerTest {
           .andExpect(model().attribute("shop", hasProperty("openHours", is(new OpenHours()))))
           .andExpect(model().attribute("shop", hasProperty("imageName", is("img/1.jpg"))));
     
-    verify(shopService, times(1)).findShopById(1L);
+    verify(shopService, times(1)).getShopById(1L);
     verifyNoMoreInteractions(shopService);
   }
   

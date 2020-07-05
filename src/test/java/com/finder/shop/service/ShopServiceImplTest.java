@@ -30,7 +30,7 @@ public class ShopServiceImplTest {
   }
 
   @Test
-  public void getAllShopsTest() {
+  public void getAllShops_Test() {
     // GIVEN
     List<Shop> expected = new ArrayList<>();
     when(shopRepository.findAll()).thenReturn(expected);
@@ -45,7 +45,7 @@ public class ShopServiceImplTest {
   }
 
   @Test
-  public void findShopById() {
+  public void getShopById_Test() {
     // GIVEN
     long id = 1;
     Shop expected = new Shop();
@@ -53,7 +53,7 @@ public class ShopServiceImplTest {
     when(shopRepository.findById(id)).thenReturn(optional);
 
     // WHEN
-    Shop actual = underTest.findShopById(id);
+    Shop actual = underTest.getShopById(id);
 
     // THEN
     assertThat(actual).isEqualTo(expected);
@@ -62,7 +62,7 @@ public class ShopServiceImplTest {
   }
 
   @Test
-  public void createShop() {
+  public void createShop_Test() {
     // GIVEN
     Shop expected = new Shop();
     when(shopRepository.save(expected)).thenReturn(expected);
@@ -77,7 +77,7 @@ public class ShopServiceImplTest {
   }
 
   @Test
-  public void updateShopImageName() {
+  public void updateShopImageName_Test() {
     // GIVEN
     String imageName = "Image name";
     Shop shop = new Shop();
