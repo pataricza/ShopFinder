@@ -25,7 +25,7 @@ public class ShopController {
     this.imageService = imageService;
   }
 
-  @GetMapping("/shops")
+  @GetMapping("/shop")
   public List<Shop> getAllShops() {
     return shopService.getAllShops();
   }

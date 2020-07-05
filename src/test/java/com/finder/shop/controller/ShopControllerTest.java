@@ -56,11 +56,8 @@ public class ShopControllerTest {
                               .build();
     
     ShopController underTest = new ShopController(shopService, imageService);
-    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-    viewResolver.setSuffix(".html");
     mockMvc = MockMvcBuilders.standaloneSetup(underTest)
                              .setControllerAdvice(new ErrorController())
-                             .setViewResolvers(viewResolver)
                              .build();
   }
 
@@ -72,7 +69,7 @@ public class ShopControllerTest {
     when(shopService.getAllShops()).thenReturn(shopList);
 
     // WHEN
-    ResultActions result = mockMvc.perform(get("/shops"));
+    ResultActions result = mockMvc.perform(get("/shop"));
 
     // THEN  
     result.andExpect(status().isOk())
@@ -95,39 +92,46 @@ public class ShopControllerTest {
   }
   
   @Test
-  public void shopDetailsTest_shopNotFound() throws Exception {
+  public void getShopById_shopNotFound_Test() throws Exception {
     // GIVEN
     long id = 1;
     when(shopService.getShopById(id)).thenThrow(NoSuchElementException.class);
     
     // WHEN
-    ResultActions result = mockMvc.perform(get("/details/" + id));
+    ResultActions result = mockMvc.perform(get("/shop/" + id));
     
     // THEN
     result.andExpect(status().isNotFound())
-          .andExpect(view().name("error"));
-    
+          .andExpect(jsonPath("errorMessage1", is(ErrorController.ErrorMessage.SHOP_NOT_FOUND_1.getMessage())))
+          .andExpect(jsonPath("errorMessage2", is(ErrorController.ErrorMessage.SHOP_NOT_FOUND_2.getMessage())));
+
     verify(shopService, times(1)).getShopById(1L);
     verifyNoMoreInteractions(shopService);
   }
   
   @Test
-  public void shopDetailsTest_shopFound() throws Exception {
+  public void getShopById_shopFound_Test() throws Exception {
     // GIVEN
     long id = 1;
     when(shopService.getShopById(id)).thenReturn(shop);
     
     // WHEN
-    ResultActions result = mockMvc.perform(get("/details/" + id));
+    ResultActions result = mockMvc.perform(get("/shop/" + id));
     
     // THEN
     result.andExpect(status().isOk())
-          .andExpect(view().name("details"))
-          .andExpect(model().attribute("shop", hasProperty("id", is(1L))))
-          .andExpect(model().attribute("shop", hasProperty("name", is("The Shop"))))
-          .andExpect(model().attribute("shop", hasProperty("address", is(new Address()))))
-          .andExpect(model().attribute("shop", hasProperty("openHours", is(new OpenHours()))))
-          .andExpect(model().attribute("shop", hasProperty("imageName", is("img/1.jpg"))));
+            .andExpect(jsonPath("$.id", is(1)))
+            .andExpect(jsonPath("$.name", is("The Shop")))
+            .andExpect(jsonPath("$.address.id", nullValue()))
+            .andExpect(jsonPath("$.address.city", nullValue()))
+            .andExpect(jsonPath("$.address.street", nullValue()))
+            .andExpect(jsonPath("$.address.houseNumber", nullValue()))
+            .andExpect(jsonPath("$.openHours.id", nullValue()))
+            .andExpect(jsonPath("$.openHours.mondayToThursday", nullValue()))
+            .andExpect(jsonPath("$.openHours.friday", nullValue()))
+            .andExpect(jsonPath("$.openHours.saturday", nullValue()))
+            .andExpect(jsonPath("$.openHours.sunday", nullValue()))
+            .andExpect(jsonPath("$.imageName", is("img/1.jpg")));
     
     verify(shopService, times(1)).getShopById(1L);
     verifyNoMoreInteractions(shopService);
