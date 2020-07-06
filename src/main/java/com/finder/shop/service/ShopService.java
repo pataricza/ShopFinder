@@ -8,6 +8,6 @@ public interface ShopService {
 
   List<Shop> getAllShops();
   Shop getShopById(long id);
-  Shop createShop(Shop shop);
+  Shop addShop(Shop shop);
   void updateShopImageName(String imageName, Shop shop);
 }

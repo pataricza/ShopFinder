@@ -3,6 +3,7 @@ package com.finder.shop.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,9 +36,10 @@ public class ShopController {
   }
 
   @PostMapping(value = "/shop")
-  public void createShop(@RequestPart("shop") Shop shop,
-                         @RequestPart("image") MultipartFile image) {
-    Shop createdShop = shopService.createShop(shop);
+  @ResponseStatus(HttpStatus.CREATED)
+  public void addShop(@RequestPart("shop") Shop shop,
+                      @RequestPart("image") MultipartFile image) {
+    Shop createdShop = shopService.addShop(shop);
     imageService.saveImage(image, createdShop);
   }
 }

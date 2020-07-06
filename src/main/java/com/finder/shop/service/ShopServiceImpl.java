@@ -29,7 +29,7 @@ public class ShopServiceImpl implements ShopService {
   }
 
   @Override
-  public Shop createShop(Shop shop) {
+  public Shop addShop(Shop shop) {
     return shopRepository.save(shop);
   }
 

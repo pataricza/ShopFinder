@@ -1,15 +1,16 @@
 package com.finder.shop.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.finder.shop.model.Address;
 import com.finder.shop.model.OpenHours;
@@ -17,6 +18,7 @@ import com.finder.shop.model.Shop;
 import com.finder.shop.service.ImageService;
 import com.finder.shop.service.ShopService;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -42,14 +44,12 @@ public class ShopControllerTest {
 
   @Before
   public void setUp() {
-    long id = 1;
     String shopName = "The Shop";
     Address address = new Address();
     OpenHours openHours = new OpenHours();
     String imageName = "img/1.jpg";
 
-    shop = Shop.builder().id(id)
-                              .name(shopName)
+    shop = Shop.builder().name(shopName)
                               .address(address)
                               .openHours(openHours)
                               .imageName(imageName)
@@ -74,7 +74,6 @@ public class ShopControllerTest {
     // THEN  
     result.andExpect(status().isOk())
           .andExpect(jsonPath("$", hasSize(1)))
-          .andExpect(jsonPath("$.[0].id", is(1)))
           .andExpect(jsonPath("$.[0].name", is("The Shop")))
           .andExpect(jsonPath("$.[0].address.id", nullValue()))
           .andExpect(jsonPath("$.[0].address.city", nullValue()))
@@ -120,7 +119,6 @@ public class ShopControllerTest {
     
     // THEN
     result.andExpect(status().isOk())
-            .andExpect(jsonPath("$.id", is(1)))
             .andExpect(jsonPath("$.name", is("The Shop")))
             .andExpect(jsonPath("$.address.id", nullValue()))
             .andExpect(jsonPath("$.address.city", nullValue()))
@@ -136,39 +134,26 @@ public class ShopControllerTest {
     verify(shopService, times(1)).getShopById(1L);
     verifyNoMoreInteractions(shopService);
   }
-  
+
   @Test
-  public void addShopTest() throws Exception {  
-    // WHEN
-    ResultActions result = mockMvc.perform(get("/add"));
-    
-    // THEN
-    result.andExpect(status().isOk())
-          .andExpect(view().name("add"))
-          .andExpect(model().attribute("shop", equalTo(new Shop())));
-  }
-  
-  @Test
-  public void createShopTest() throws Exception {  
+  public void addShop_Test() throws Exception {
     // GIVEN
-    MockMultipartFile image = new MockMultipartFile("image", new byte[100]);
-    
-    when(shopService.createShop(shop)).thenReturn(shop);
+    MockMultipartFile image = new MockMultipartFile("image", "image.jpg", MediaType.IMAGE_JPEG_VALUE, new byte[100]);
+
+    ObjectMapper objectMapper = new ObjectMapper();
+    MockMultipartFile shopJson = new MockMultipartFile("shop", "shop", MediaType.APPLICATION_JSON_VALUE, objectMapper.writeValueAsBytes(shop));
+
+    when(shopService.addShop(shop)).thenReturn(shop);
     
     // WHEN
-    ResultActions result = mockMvc.perform(multipart("/add")
+    ResultActions result = mockMvc.perform(multipart("/shop")
                                   .file(image)
-                                  .param("id", "1")
-                                  .param("name", "The Shop")
-                                  .param("address.id", "")
-                                  .param("openHours.id", "")
-                                  .param("imageName", "img/1.jpg"));
+                                  .file(shopJson));
         
     // THEN
-    result.andExpect(status().is3xxRedirection())
-          .andExpect(redirectedUrl("/"));
+    result.andExpect(status().isCreated());
 
-    verify(shopService, times(1)).createShop(shop);
+    verify(shopService, times(1)).addShop(shop);
     verify(imageService, times(1)).saveImage(image, shop);
     verifyNoMoreInteractions(shopService, imageService);
   }

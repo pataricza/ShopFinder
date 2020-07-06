@@ -68,7 +68,7 @@ public class ShopServiceImplTest {
     when(shopRepository.save(expected)).thenReturn(expected);
 
     // WHEN
-    Shop actual = underTest.createShop(expected);
+    Shop actual = underTest.addShop(expected);
 
     // THEN
     assertThat(actual).isEqualTo(expected);
